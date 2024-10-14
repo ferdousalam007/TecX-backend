@@ -97,35 +97,4 @@ export const getPostsMetrics = catchAsync(async (req, res) => {
   res.json(resultData);
 });
 
-export const getPaymentMetrics = catchAsync(async (req, res) => {
-  const endDate = new Date();
-  const startDate = new Date(endDate);
-  startDate.setDate(startDate.getDate() - 29);
 
-  const payments = await Payment.aggregate([
-    {
-      $match: {
-        createdAt: { $gte: startDate, $lte: endDate },
-        payment_status: 'completed',
-      },
-    },
-    {
-      $group: {
-        _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
-        totalAmount: { $sum: '$amount' },
-      },
-    },
-  ]);
-
-  const paymentMap = new Map(
-    payments.map((payment) => [payment._id, payment.totalAmount]),
-  );
-  const paymentData = Array.from({ length: 30 }, (_, i) => {
-    const date = new Date(startDate);
-    date.setDate(date.getDate() + i);
-    const dateString = date.toISOString().split('T')[0];
-    return { date: dateString, totalAmount: paymentMap.get(dateString) || 0 };
-  });
-
-  res.json(paymentData);
-});
