@@ -15,8 +15,8 @@ export const initPayment = catchAsync(async (req, res, next) => {
   if (!user) return next(new AppError(httpStatus.NOT_FOUND, `User not found`));
   const transactionId = `TXN${Date.now()}`;
   const data = {
-    total_amount: 2000,
-    currency: 'BDT',
+    total_amount: 20,
+    currency: 'USD',
     tran_id: transactionId,
     success_url: `${process.env.API_URL}/payments/success/${req.user.userId}/${transactionId}`,
     fail_url: `${process.env.API_URL}/payments/error/${transactionId}`,

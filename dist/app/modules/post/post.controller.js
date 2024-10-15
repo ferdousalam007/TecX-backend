@@ -64,30 +64,6 @@ exports.getPost = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0
         data: Object.assign(Object.assign({}, post.toObject()), { comments }),
     });
 }));
-// export const getPost = catchAsync(async (req, res, next) => {
-//   const { id } = req.params;
-//   const post = await Post.findById(id).populate(
-//     'author category',
-//     'name email profilePic',
-//   );
-//   if (!post) {
-//     return next(new AppError(httpStatus.NOT_FOUND, `Post not found`));
-//   }
-//   const comments = await Comment.find({ post: id }).populate(
-//     'author',
-//     'name email profilePic',
-//   );
-//   // SEND RESPONSE
-//   res.status(httpStatus.OK).json({
-//     success: true,
-//     statusCode: httpStatus.OK,
-//     message: `Posts retrieved successfully`,
-//     data: {
-//       ...post.toObject(),
-//       comments,
-//     },
-//   });
-// });
 exports.getAllPost = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const posts = yield post_model_1.default.find().populate('author category', 'name email profilePic');
     // SEND RESPONSE

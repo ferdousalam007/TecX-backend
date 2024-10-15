@@ -16,7 +16,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
-      process.env.API_URL as string,
+      // process.env.CLIENT_URL as string,
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],

@@ -41,32 +41,7 @@ export const getPost = catchAsync(async (req, res, next) => {
   });
 });
 
-// export const getPost = catchAsync(async (req, res, next) => {
-//   const { id } = req.params;
-//   const post = await Post.findById(id).populate(
-//     'author category',
-//     'name email profilePic',
-//   );
 
-//   if (!post) {
-//     return next(new AppError(httpStatus.NOT_FOUND, `Post not found`));
-//   }
-
-//   const comments = await Comment.find({ post: id }).populate(
-//     'author',
-//     'name email profilePic',
-//   );
-//   // SEND RESPONSE
-//   res.status(httpStatus.OK).json({
-//     success: true,
-//     statusCode: httpStatus.OK,
-//     message: `Posts retrieved successfully`,
-//     data: {
-//       ...post.toObject(),
-//       comments,
-//     },
-//   });
-// });
 
 export const getAllPost=catchAsync(async (req, res) => {
   const posts = await Post.find().populate(
