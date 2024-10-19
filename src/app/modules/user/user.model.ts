@@ -45,6 +45,10 @@ const userSchema = new Schema<TUser>(
       type: Boolean,
       default: false,
     },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
     followers: [
       {
         type: Schema.Types.ObjectId,
@@ -76,10 +80,10 @@ const userSchema = new Schema<TUser>(
   },
 );
 
-// Pre-save hook to hash the user's password before saving it to the database
+
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
-  // Hash the password with the configured number of salt rounds
+
   this.password = await bcrypt.hash(
     this.password,
     parseInt(config.BCRYPT_SALT_ROUNDS as string),
@@ -87,7 +91,7 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// Static method to compare plain text password with the hashed password
+
 userSchema.statics.isPasswordMatched = async function (
   plainTextPassword,
   hashedPassword,
@@ -95,7 +99,7 @@ userSchema.statics.isPasswordMatched = async function (
   return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
 
-// Method: Create a password reset token and set its expiration time
+
 userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
   this.passwordResetToken = crypto
@@ -107,6 +111,6 @@ userSchema.methods.createPasswordResetToken = function () {
   return resetToken;
 };
 
-// Create and export the User model
+
 const User = model<TUser, UserModel>('User', userSchema);
 export default User;

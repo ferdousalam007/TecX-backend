@@ -16,6 +16,17 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
 const config_1 = __importDefault(require("./app/config"));
 let server;
+// async function addNewFieldToExistingDocuments() {
+//   try {
+//     const result = await Model.updateMany(
+//       {},
+//       { $set: { fieldName: "This is a new fieldName" } }
+//     );
+//     console.log(`${result.modifiedCount} documents updated.`);
+//   } catch (error) {
+//     console.error('Error updating documents:', error);
+//   }
+// }
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {

@@ -8,6 +8,11 @@ const postSchema = new Schema<TPost>(
       trim: true,
       required: true,
     },
+    description: {
+      type: String,
+      trim: true,
+      required: true,
+    },
     content: {
       type: String,
       required: true,
@@ -27,6 +32,10 @@ const postSchema = new Schema<TPost>(
       default: [],
     },
     isPremium: {
+      type: Boolean,
+      default: false,
+    },
+    isDeleted: {
       type: Boolean,
       default: false,
     },

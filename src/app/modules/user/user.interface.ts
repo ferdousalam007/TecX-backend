@@ -12,6 +12,7 @@ export interface TUser {
   profilePic?: string;
   isVerified: boolean;
   isBlocked: boolean;
+  isDeleted: boolean;
   followers: string[];
   following: string[];
   loggedInAt?: Date;

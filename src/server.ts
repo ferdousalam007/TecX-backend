@@ -3,12 +3,25 @@ import mongoose from 'mongoose';
 import app from './app';
 import config from './app/config';
 
-let server: Server;
 
+
+let server: Server;
+// async function addNewFieldToExistingDocuments() {
+//   try {
+//     const result = await Post.updateMany(
+//       {},
+//       { $set: { isDeleted: false } }
+//     );
+//     console.log(`${result.modifiedCount} documents updated.`);
+//   } catch (error) {
+//     console.error('Error updating documents:', error);
+//   }
+// }
 async function main() {
   try {
     await mongoose.connect(config.DATABASE_URL as string);
     server = app.listen(config.PORT, () => {
+
       console.log(`App is listening on port ${config.PORT}`);
     });
   } catch (err) {
