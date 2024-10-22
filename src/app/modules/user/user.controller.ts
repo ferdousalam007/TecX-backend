@@ -56,8 +56,8 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
 export const updateUser = request.updateOne(User);
 
 export const deleteUser = catchAsync(async (req, res) => {
-  const userId = req.params.userId;
-
+  const userId = req.params.id;
+  
   const user = await User.findByIdAndUpdate(
     userId,
     { isDeleted: true },
