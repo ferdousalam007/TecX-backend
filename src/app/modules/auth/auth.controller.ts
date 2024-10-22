@@ -132,7 +132,7 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
 });
 
 export const resetPassword = catchAsync(async (req, res, next) => {
-  n;
+ 
   const hashedToken = crypto
     .createHash('sha256')
     .update(req.params.token)
