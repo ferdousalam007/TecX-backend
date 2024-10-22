@@ -8,12 +8,14 @@ import {
   deletePost,
   getMyPosts,
   getAllPost,
+  getBannerPost,
 } from './post.controller';
 
 const router = express.Router();
 
 router.route('/').get(getAllPosts).post(auth('admin', 'user'), createPost);
 router.get('/allpost', getAllPost);
+router.get('/bannerpost', getBannerPost);
 
 router.get('/my-posts', auth('user', 'admin'), getMyPosts);
 router

@@ -24,13 +24,11 @@ class APIFeatures<T> {
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach((el) => delete queryObj[el]);
 
-    // Handle search term for car name
     if (queryObj.search) {
       queryObj.title = { $regex: queryObj.search, $options: 'i' };
       delete queryObj.search;
     }
 
-    // Advanced filtering for other query parameters
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 

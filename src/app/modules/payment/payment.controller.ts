@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import SSLCommerzPayment from 'sslcommerz-lts';
 import catchAsync from '../../utils/catchAsync';
-import * as factory from '../../utils/handlerFactory';
+import * as request from '../../utils/helperRequest';
 import User from '../user/user.model';
 import AppError from '../../errors/AppError';
 import Payment from './payment.model';
@@ -92,4 +92,4 @@ export const paymentError = catchAsync(async (req, res) => {
   res.redirect(`${process.env.CLIENT_URL}/payment/error`);
 });
 
-export const getAllPayments = factory.getAll(Payment, 'user');
+export const getAllPayments = request.getAll(Payment, 'user');

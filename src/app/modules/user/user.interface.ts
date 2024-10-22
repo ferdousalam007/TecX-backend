@@ -24,7 +24,6 @@ export interface TUser {
 }
 
 export interface UserModel extends Model<TUser> {
-  //instance methods for checking if passwords are matched
   isPasswordMatched(
     plainTextPassword: string,
     hashedPassword: string,

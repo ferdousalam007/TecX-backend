@@ -9,7 +9,6 @@ import { AnalyticsRoutes } from '../modules/analytics/analytics.routes';
 
 const router = Router();
 
-// Define the routes for each module
 const moduleRoutes = [
   {
     path: '/auth',
@@ -41,7 +40,6 @@ const moduleRoutes = [
   },
 ];
 
-// Register each module route with the router
 moduleRoutes.forEach((route) => router.use(route.path, route.route));
 
 export default router;

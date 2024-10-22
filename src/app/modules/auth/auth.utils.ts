@@ -11,7 +11,6 @@ export const createAndSendToken = (
   },
   res: Response,
 ) => {
-  // Prepare JWT payload
   const jwtPayload = {
     userId: user._id,
     role: user.role,
@@ -19,7 +18,7 @@ export const createAndSendToken = (
   const token = jwt.sign(jwtPayload, config.JWT_SECRET as string, {
     expiresIn: config.JWT_EXPIRES_IN,
   });
-  // Configure options for JWT cookie
+
   const cookieOptions = {
     expires: new Date(
       Date.now() +
@@ -29,12 +28,10 @@ export const createAndSendToken = (
     secure: config.NODE_ENV === 'production',
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   const { password: _, ...userData } = user;
-  // Set JWT token as a cookie in the response
+
   res.cookie('jwt', token, cookieOptions);
 
-  // Send success response with user data and token
   res.status(httpStatus.OK).json({
     success: true,
     statusCode: httpStatus.OK,

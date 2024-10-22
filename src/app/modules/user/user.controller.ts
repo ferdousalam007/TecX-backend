@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import User from './user.model';
-import * as factory from '../../utils/handlerFactory';
+import * as request from '../../utils/helperRequest';
 
 export const getMe = catchAsync(async (req, res) => {
   const userId = req.user.userId;
@@ -31,14 +31,16 @@ export const updateMe = catchAsync(async (req, res) => {
   });
 });
 
-export const createUser = factory.createOne(User);
-export const getUser = factory.getOne(User);
-// export const getAllUsers = factory.getAll(User);
+export const createUser = request.createOne(User);
+export const getUser = request.getOne(User);
 export const getAllUsers = catchAsync(async (req, res, next) => {
   try {
     let query = User.find({ isDeleted: false });
     if (req.query.populate === 'true') {
-      query = query.populate('followers following', 'name email profilePic isVerified');
+      query = query.populate(
+        'followers following',
+        'name email profilePic isVerified',
+      );
     }
     const users = await query;
     res.status(httpStatus.OK).json({
@@ -51,19 +53,16 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
     next(error);
   }
 });
-export const updateUser = factory.updateOne(User);
-// export const deleteUser = factory.deleteOne(User);
+export const updateUser = request.updateOne(User);
 
 export const deleteUser = catchAsync(async (req, res) => {
   const userId = req.params.userId;
-
 
   const user = await User.findByIdAndUpdate(
     userId,
     { isDeleted: true },
     { new: true, runValidators: true },
   );
-
 
   if (!user) {
     return res.status(httpStatus.NOT_FOUND).json({

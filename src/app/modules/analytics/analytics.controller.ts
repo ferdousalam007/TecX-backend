@@ -13,7 +13,7 @@ export const getModelCounts = catchAsync(async (req, res) => {
     {
       $group: {
         _id: null, // No specific grouping, just summing all views
-        totalViews: { $sum: "$viewsCount" }, // Summing the viewsCount
+        totalViews: { $sum: '$viewsCount' }, // Summing the viewsCount
       },
     },
   ]);
@@ -26,7 +26,6 @@ export const getPostsMetrics = catchAsync(async (req, res) => {
   const endDate = new Date();
   const startDate = new Date(endDate);
   startDate.setDate(startDate.getDate() - 29);
-
 
   // Aggregate posts by creation date
   const posts = await Post.aggregate([
@@ -75,7 +74,12 @@ export const getPostsMetrics = catchAsync(async (req, res) => {
   ]);
 
   // Mapping post, comment, and upvote counts by date
-  const postMap = new Map(posts.map((p) => [p._id, { postCount: p.postCount, viewsCount: p.totalViewsCount }]));
+  const postMap = new Map(
+    posts.map((p) => [
+      p._id,
+      { postCount: p.postCount, viewsCount: p.totalViewsCount },
+    ]),
+  );
   const commentMap = new Map(comments.map((c) => [c._id, c.commentCount]));
   const upvoteMap = new Map(upvotes.map((u) => [u._id, u.upvoteCount]));
 

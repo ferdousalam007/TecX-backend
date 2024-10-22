@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { Model } from 'mongoose';
-import catchAsync from './../utils/catchAsync';
+import catchAsync from './catchAsync';
 import AppError from '../errors/AppError';
 import APIFeatures from './apiFeatures';
 import httpStatus from 'http-status';
@@ -79,16 +79,15 @@ export const getOne = <T>(Model: Model<T>, popOptions?: string) =>
 export const getAll = <T>(Model: Model<T>, popOptions?: string) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     try {
-      // APi features
       const features = new APIFeatures(Model.find(), req.query)
         .filter()
         .sort()
         .limitFields()
         .paginate();
-      // POPULATE
+
       if (popOptions) features.query = features.query.populate(popOptions);
       const doc = await features.query;
-      // SEND RESPONSE
+
       res.status(httpStatus.OK).json({
         success: true,
         statusCode: httpStatus.OK,

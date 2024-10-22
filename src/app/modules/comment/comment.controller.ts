@@ -1,8 +1,8 @@
-import * as factory from '../../utils/handlerFactory';
+import * as request from '../../utils/helperRequest';
 import Comment from './comment.model';
 
-export const createComment = factory.createOne(Comment);
-export const getComment = factory.getOne(Comment);
-export const getAllComments = factory.getAll(Comment);
-export const updateComment = factory.updateOne(Comment);
-export const deleteComment = factory.deleteOne(Comment);
+export const createComment = request.createOne(Comment);
+export const getComment = request.getOne(Comment);
+export const getAllComments = request.getAll(Comment);
+export const updateComment = request.updateOne(Comment);
+export const deleteComment = request.deleteOne(Comment);

@@ -4,7 +4,6 @@ import { Schema, model } from 'mongoose';
 import config from '../../config';
 import { TUser, UserModel } from './user.interface';
 
-// Define the schema for the User model
 const userSchema = new Schema<TUser>(
   {
     name: {
@@ -80,7 +79,6 @@ const userSchema = new Schema<TUser>(
   },
 );
 
-
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
 
@@ -91,14 +89,12 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-
 userSchema.statics.isPasswordMatched = async function (
   plainTextPassword,
   hashedPassword,
 ) {
   return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
-
 
 userSchema.methods.createPasswordResetToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
@@ -110,7 +106,6 @@ userSchema.methods.createPasswordResetToken = function () {
 
   return resetToken;
 };
-
 
 const User = model<TUser, UserModel>('User', userSchema);
 export default User;
